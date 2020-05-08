@@ -10,7 +10,18 @@ Question.prototype.display = function() {
     for(var i = 0; i < this.answers.length; i++) {
         console.log(i + ': ' + this.answers[i]);
     }
-}
+};
+
+Question.prototype.checkAnswer = function(answer) {
+    if(answer === this.correct) {
+        console.log('Correct Answer!');
+    }
+    else {
+        console.log('Wrong Answer! try again :)');
+    }
+}; 
+
+
 
 var q1 = new Question('What is the gaming tag of the developer of this quiz?', ['Optimus', 'Goku', 'Saiyan'], 0);
 
@@ -28,4 +39,6 @@ var number = Math.floor(Math.random() * questions.length);
 
 questions[number].display();
 
-var answer = prompt('Please select the correct option.');
+var answer = parseInt(prompt('Please select the correct option.'));
+
+questions[number].checkAnswer(answer);
