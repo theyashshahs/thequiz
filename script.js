@@ -12,16 +12,38 @@ Question.prototype.display = function() {
     }
 };
 
-Question.prototype.checkAnswer = function(answer) {
+Question.prototype.checkAnswer = function(answer, callback) {
+    var sc;
     if(answer === this.correct) {
         console.log('Correct Answer!');
+        sc = callback(true);
     }
     else {
         console.log('Wrong Answer! try again :)');
+        sc = callback(false);
     }
+
+    this.displayScore(sc);
 }; 
 
+Question.prototype.displayScore = function(score) {
+    console.log('Your current score: ' + score);
 
+    console.log('------------------------------------------------------------');
+};
+
+function score() {
+    var sc = 0;
+
+    return function(correctAnswer) {
+        if(correctAnswer) {
+            sc++;
+        }
+        return sc;
+    };
+}
+
+var keepScore = score();
 
 var q1 = new Question('What is the gaming tag of the developer of this quiz?', ['Optimus', 'Goku', 'Saiyan'], 0);
 
@@ -45,7 +67,7 @@ function nextQuestion() {
     var answer = prompt("Please select the correct option.");
     
     if(answer !== 'exit') {
-        questions[number].checkAnswer(parseInt(answer));
+        questions[number].checkAnswer(parseInt(answer), keepScore);
 
         nextQuestion();
     }
