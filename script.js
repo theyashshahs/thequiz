@@ -35,10 +35,21 @@ var q5 = new Question('What is the creator\'s favourite food item?', ['Kaju', 'F
 
 var questions = [q1, q2, q3, q4, q5];
 
-var number = Math.floor(Math.random() * questions.length);
 
-questions[number].display();
 
-var answer = parseInt(prompt('Please select the correct option.'));
+function nextQuestion() { 
+    var number = Math.floor(Math.random() * questions.length);
 
-questions[number].checkAnswer(answer);
+	questions[number].display();
+
+    var answer = prompt("Please select the correct option.");
+    
+    if(answer !== 'exit') {
+        questions[number].checkAnswer(parseInt(answer));
+
+        nextQuestion();
+    }
+}
+
+nextQuestion();
+
